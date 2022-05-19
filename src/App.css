@@ -1,38 +1,65 @@
-.App {
-  text-align: center;
+.appContainer {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.genderlist {
+  text-align: left;
+  flex-direction: row;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.dropdown {
+  width: "100%";
+  border-radius: 1px;
+  /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); */
+  /* background-color: white; */
+  border: 1px solid #e5e8ec;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.dropdown-header {
+  padding: 3px;
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-left: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.dropdown-body {
+  padding: 3px;
+  border-top: 1px solid #e5e8ec;
+  display: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dropdown-body.open {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 10px;
+  padding-left: 0px;
+}
+
+.dropdown-item:hover {
+  cursor: pointer;
+}
+
+.dropdown-item-dot {
+  opacity: 0;
+  color: #91a5be;
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdown-item-dot.selected {
+  opacity: 1;
+}
+
+.icon {
+  font-size: 13px;
+  color: #91a5be;
+  transform: rotate(0deg);
+  transition: all 0.2s ease-in-out;
+}
+
+.icon.open {
+  transform: rotate(90deg);
 }
