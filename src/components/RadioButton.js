@@ -3,7 +3,7 @@ import { RootContext } from "../RootContext";
 import "./RadioButton.css";
 
 function RadioButtons() {
-  const genders = ["male", "female", "All"];
+  const genders = [" Male", " Female", " All"];
   const { gender, setGender } = useContext(RootContext);
 
   const handleGenders = (e) => {
@@ -15,7 +15,7 @@ function RadioButtons() {
       {genders.map((gen, index) => (
         <div key={index}>
           <input
-            className="radio-btn"
+            className="button"
             type="radio"
             value={gen}
             name="gender"

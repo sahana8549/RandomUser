@@ -8,12 +8,12 @@ const Card = () => {
   return (
     <>
       {image?.map((details, index) => {
-        const { email, name, picture } = details;
+        const { email, name, picture, nat } = details;
         return (
-          <div className="cardCon">
+          <div className="cardCon" key={index}>
             <img src={picture?.thumbnail} alt="image" className="image" />
             <div className="name">
-              <p>{`${name?.title} ${name?.first} ${name?.last}`}</p>
+              <p>{`${name?.title} ${name?.first} ${name?.last} (${nat})`}</p>
               <p>{email}</p>
             </div>
           </div>

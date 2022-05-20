@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import Card from "./components/Card";
 import { RootContext, Rootprovider } from "./RootContext";
 import axios from "axios";
+import RadioButtons from "./components/RadioButton";
 
 const list = [
   { id: 0, label: "AU" },
@@ -25,18 +26,16 @@ const list = [
 ];
 
 function App() {
-  const [gender, setGender] = useState("male");
+  // const [gender, setGender] = useState("male");
   const [isOpen, setOpen] = useState(false);
   const [items, setItem] = useState(list);
   const [selectedItem, setSelectedItem] = useState(null);
-  const { setImage } = useContext(RootContext);
-  const Url = `https://randomuser.me/api/?results=20&nat=${selectedItem}&inc=name,gender,email,picture&gender=${gender}`;
+  const { setImage, gender } = useContext(RootContext);
+  const Url = `https://randomuser.me/api/?results=20&nat=${selectedItem}&inc=name,gender,email,nat,picture&gender=${gender}`;
   const appendData = () => {
     axios.get(Url).then((body) => setImage(body.data.results));
   };
-  const handleChange = (e) => {
-    setGender(e.target.value);
-  };
+
   useEffect(() => {
     appendData();
   }, [gender, selectedItem]);
@@ -49,40 +48,7 @@ function App() {
   };
   return (
     <div className="appContainer">
-      <form>
-        <div>
-          <input
-            type="radio"
-            value="male"
-            id="male"
-            onChange={handleChange}
-            defaultChecked
-            name="gender"
-          />
-
-          <label htmlFor="male">Male</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            value="female"
-            id="female"
-            onChange={handleChange}
-            name="gender"
-          />
-          <label htmlFor="female">Female</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            value="all"
-            id="all"
-            onChange={handleChange}
-            name="gender"
-          />
-          <label htmlFor="all">All</label>
-        </div>
-      </form>
+      <RadioButtons />
       <h5>Select Nationality:</h5>
       <div className="dropdown">
         <div className="dropdown-header" onClick={toggleDropdown}>
@@ -93,8 +59,9 @@ function App() {
           <i className={`fa fa-chevron-down icon ${isOpen && "open"}`}></i>
         </div>
         <div className={`dropdown-body ${isOpen && "open"}`}>
-          {items.map((item) => (
+          {items.map((item, i) => (
             <div
+              key={i}
               className="dropdown-item"
               onClick={(e) => handleItemClick(e.target.id)}
               id={item.id}
