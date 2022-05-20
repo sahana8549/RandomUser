@@ -34,52 +34,55 @@ function App() {
   const appendData = () => {
     axios.get(Url).then((body) => setImage(body.data.results));
   };
-
-  useEffect(() => {
-    appendData();
-  }, [gender, selectedItem]);
   const handleChange = (e) => {
     setGender(e.target.value);
   };
+  useEffect(() => {
+    appendData();
+  }, [gender, selectedItem]);
+
   const toggleDropdown = () => setOpen(!isOpen);
 
   const handleItemClick = (id) => {
     selectedItem == id ? setSelectedItem(null) : setSelectedItem(id);
+    setOpen(false);
   };
   return (
     <div className="appContainer">
-      <div>
-        <input
-          type="radio"
-          value="male"
-          id="male"
-          onChange={handleChange}
-          name="gender"
-          checked
-        />
+      <form>
+        <div>
+          <input
+            type="radio"
+            value="male"
+            id="male"
+            onChange={handleChange}
+            defaultChecked
+            name="gender"
+          />
 
-        <label htmlFor="male">Male</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          value="female"
-          id="female"
-          onChange={handleChange}
-          name="gender"
-        />
-        <label htmlFor="female">Female</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          value="all"
-          id="all"
-          onChange={handleChange}
-          name="gender"
-        />
-        <label htmlFor="all">All</label>
-      </div>
+          <label htmlFor="male">Male</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            value="female"
+            id="female"
+            onChange={handleChange}
+            name="gender"
+          />
+          <label htmlFor="female">Female</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            value="all"
+            id="all"
+            onChange={handleChange}
+            name="gender"
+          />
+          <label htmlFor="all">All</label>
+        </div>
+      </form>
       <h5>Select Nationality:</h5>
       <div className="dropdown">
         <div className="dropdown-header" onClick={toggleDropdown}>
