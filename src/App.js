@@ -30,16 +30,16 @@ function App() {
   const [isOpen, setOpen] = useState(false);
   const [items, setItem] = useState(list);
   const [selectedItem, setSelectedItem] = useState(null);
-  const { setImage, gender } = useContext(RootContext);
-  const Url = `https://randomuser.me/api/?results=20&nat=${selectedItem}&inc=name,gender,email,nat,picture&gender=${gender}`;
+  const { setImage, gender1, setGender } = useContext(RootContext);
+  const Url = `https://randomuser.me/api/?results=20&nat=${selectedItem}&inc=name,gender,email,nat,picture&gender=${gender1}`;
   const appendData = () => {
     axios.get(Url).then((body) => setImage(body.data.results));
   };
 
   useEffect(() => {
     appendData();
-  }, [gender, selectedItem]);
-
+  }, [gender1, selectedItem]);
+  // console.log(gender);
   const toggleDropdown = () => setOpen(!isOpen);
 
   const handleItemClick = (id) => {

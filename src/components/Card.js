@@ -3,21 +3,26 @@ import { RootContext } from "../RootContext";
 import "./Card.css";
 
 const Card = () => {
-  const { image } = useContext(RootContext);
-  console.log(image);
+  const { image, gender1 } = useContext(RootContext);
+
+  console.log(gender1);
   return (
     <>
       {image?.map((details, index) => {
-        const { email, name, picture, nat } = details;
-        return (
-          <div className="cardCon" key={index}>
-            <img src={picture?.thumbnail} alt="image" className="image" />
-            <div className="name">
-              <p>{`${name?.title} ${name?.first} ${name?.last} (${nat})`}</p>
-              <p>{email}</p>
+        const { email, name, picture, nat, gender } = details;
+        console.log(gender);
+
+        if (gender.toLowerCase() == gender1.toLowerCase() || gender1 == "All") {
+          return (
+            <div className="cardCon" key={index}>
+              <img src={picture?.thumbnail} alt="image" className="image" />
+              <div className="name">
+                <p>{`${name?.title} ${name?.first} ${name?.last} `}</p>
+                <p>{email}</p>
+              </div>
             </div>
-          </div>
-        );
+          );
+        }
       })}
     </>
   );
