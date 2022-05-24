@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState, useEffect, useContext } from "react";
 import Card from "./components/Card";
-import { RootContext, Rootprovider } from "./RootContext";
+import { RootContext } from "./RootContext";
 import axios from "axios";
 import RadioButtons from "./components/RadioButton";
 
@@ -30,7 +30,7 @@ function App() {
   const [isOpen, setOpen] = useState(false);
   const [items, setItem] = useState(list);
   const [selectedItem, setSelectedItem] = useState(null);
-  const { setImage, gender1, setGender } = useContext(RootContext);
+  const { setImage, gender1, setGender, na } = useContext(RootContext);
   const Url = `https://randomuser.me/api/?results=20&nat=${selectedItem}&inc=name,gender,email,nat,picture&gender=${gender1}`;
   const appendData = () => {
     axios.get(Url).then((body) => setImage(body.data.results));
@@ -39,7 +39,6 @@ function App() {
   useEffect(() => {
     appendData();
   }, [gender1, selectedItem]);
-  // console.log(gender);
   const toggleDropdown = () => setOpen(!isOpen);
 
   const handleItemClick = (id) => {
@@ -51,7 +50,11 @@ function App() {
       <RadioButtons />
       <h5>Select Nationality:</h5>
       <div className="dropdown">
-        <div className="dropdown-header" onClick={toggleDropdown}>
+        <div
+          data-test-id="test-span"
+          className="dropdown-header"
+          onClick={toggleDropdown}
+        >
           {selectedItem
             ? items.find((item) => item.id == selectedItem).label
             : "AU"}
@@ -61,12 +64,15 @@ function App() {
         <div className={`dropdown-body ${isOpen && "open"}`}>
           {items.map((item, i) => (
             <div
+              role="combobox"
               key={i}
               className="dropdown-item"
               onClick={(e) => handleItemClick(e.target.id)}
               id={item.id}
             >
               <span
+                role="option"
+                title="delete"
                 className={`dropdown-item-dot ${
                   item.id === selectedItem && "selected"
                 }`}

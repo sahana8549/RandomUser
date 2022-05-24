@@ -11,7 +11,7 @@ function RadioButtons() {
   };
 
   return (
-    <>
+    <form>
       {genders.map((gen, index) => (
         <div key={index}>
           <input
@@ -28,7 +28,7 @@ function RadioButtons() {
           </label>
         </div>
       ))}
-    </>
+    </form>
   );
 }
 
