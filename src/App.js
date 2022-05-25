@@ -2,7 +2,6 @@ import "./App.css";
 import { useState, useEffect, useContext } from "react";
 import Card from "./components/Card";
 import { RootContext } from "./RootContext";
-import axios from "axios";
 import RadioButtons from "./components/RadioButton";
 
 const list = [
@@ -26,25 +25,24 @@ const list = [
 ];
 
 function App() {
-  // const [gender, setGender] = useState("male");
   const [isOpen, setOpen] = useState(false);
   const [items, setItem] = useState(list);
   const [selectedItem, setSelectedItem] = useState(null);
-  const { setImage, gender1, setGender, na } = useContext(RootContext);
-  const Url = `https://randomuser.me/api/?results=20&nat=${selectedItem}&inc=name,gender,email,nat,picture&gender=${gender1}`;
-  const appendData = () => {
-    axios.get(Url).then((body) => setImage(body.data.results));
-  };
+  const { state, action } = useContext(RootContext);
+
+  const { gender1 } = state;
 
   useEffect(() => {
-    appendData();
+    action.User(gender1, selectedItem);
   }, [gender1, selectedItem]);
   const toggleDropdown = () => setOpen(!isOpen);
 
   const handleItemClick = (id) => {
+    action.changeNationality(items[id].label);
     selectedItem == id ? setSelectedItem(null) : setSelectedItem(id);
-    setOpen(false);
+    toggleDropdown();
   };
+
   return (
     <div className="appContainer">
       <RadioButtons />

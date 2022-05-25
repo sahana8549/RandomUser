@@ -1,15 +1,13 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useReducer, useState } from "react";
+import actions from "./reducer/action/action";
+import { INTIAL_STATE, reducer } from "./reducer/reducer/reducer";
 export const RootContext = createContext({});
 
 export const Rootprovider = ({ children }) => {
-  const [image, setImage] = useState([]);
-  const [gender1, setGender] = useState("Male");
-  const [place, setPlace] = useState("AU");
-
+  const [state, dispatch] = useReducer(reducer, INTIAL_STATE);
+  const action = actions(dispatch);
   return (
-    <RootContext.Provider
-      value={{ setImage, image, setGender, gender1, place, setPlace }}
-    >
+    <RootContext.Provider value={{ state, action }}>
       {children}
     </RootContext.Provider>
   );

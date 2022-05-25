@@ -4,10 +4,11 @@ import "./RadioButton.css";
 
 function RadioButtons() {
   const genders = ["Male", "Female", "All"];
-  const { gender1, setGender } = useContext(RootContext);
-
+  const { state, action } = useContext(RootContext);
+  const { gender1 } = state;
   const handleGenders = (e) => {
-    setGender(e.target.value);
+    console.log(e.target.value);
+    action.changeGender(e.target.value);
   };
 
   return (
